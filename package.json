@@ -1,0 +1,21 @@
+{
+  "name": "aw_table",
+  "version": "1.0.0",
+  "description": "Table for aw_polymer_3 with various functionalities",
+  "main": "aw-table.js",
+  "keywords": [
+    "Polymer",
+    "Table",
+    "Tabla Arisman Webs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manujoz/aw_table.git"
+  },
+  "author": "Manu Overa",
+  "license": "ISC",
+	"dependencies": {
+		"aw_polymer_3": "^1.1.20"
+  },
+  "types": "./index.d.ts"
+}
