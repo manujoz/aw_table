@@ -1,0 +1,13 @@
+{
+  "tabWidth": 4,
+  "printWidth": 150,
+  "overrides": [
+    {
+      "files": ["*.json", "*.md"],
+      "options": {
+        "tabWidth": 2,
+        "printWidth": 100
+      }
+    }
+  ]
+}

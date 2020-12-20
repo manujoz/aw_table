@@ -4,7 +4,7 @@ Component for `aw_polymer_3` that creates a stylish table with various functiona
 
 ## Install
 
-```npm i aw_table```
+`npm i aw_table`
 
 ## Use
 
@@ -15,69 +15,83 @@ This will create a stylish table with added features saving you a lot of code to
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Test page</title>
-</head>
-<body>
-  <aw-table unresolved>
-    <table>
-      <thead>
-        <tr>
-          <th>Position</th>
-          <th>Name</th>
-          <th>Rating</th>
-          <th>Details</th>
-          <th>Car</th>
-          <th>Fruit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2</td>
-          <td>Jonathan Bampletiem</td>
-          <td>2000</td>
-          <td>Details for Jonathan</td>
-          <td>Aston Martin</td>
-          <td>Watermelon</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Anthony Smith</td>
-          <td>2452</td>
-          <td>Details for Anthony</td>
-          <td>Ferrari</td>
-          <td>Strawberry</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>David Rajhan Dallara</td>
-          <td>3600</td>
-          <td>Details for David</td>
-          <td>Porsche 911rsr</td>
-          <td>Grape</td>
-        </tr>
-      </tbody>
-    </table>
-	</aw-table>
-    
-	<script src="/node_modules/aw_webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<script type="module" src="/node_modules/aw_polymer_3/polymer/polymer-element.js"></script>
-	<script type="module" async src="/node_modules/aw_table/aw-table.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test page</title>
+  </head>
+  <body>
+    <aw-table unresolved>
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Details</th>
+            <th>Car</th>
+            <th>Fruit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2</td>
+            <td>Jonathan Bampletiem</td>
+            <td>2000</td>
+            <td>Details for Jonathan</td>
+            <td>Aston Martin</td>
+            <td>Watermelon</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Anthony Smith</td>
+            <td>2452</td>
+            <td>Details for Anthony</td>
+            <td>Ferrari</td>
+            <td>Strawberry</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>David Rajhan Dallara</td>
+            <td>3600</td>
+            <td>Details for David</td>
+            <td>Porsche 911rsr</td>
+            <td>Grape</td>
+          </tr>
+        </tbody>
+      </table>
+    </aw-table>
+
+    <script src="/node_modules/aw_webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="/node_modules/aw_polymer_3/polymer/polymer-element.js"></script>
+    <script type="module" async src="/node_modules/aw_table/aw-table.js"></script>
+  </body>
 </html>
 ```
 
 ## Properties
 
+- unresolved => `boolean`
 - sticky => `boolean`
 - sortbycolumn => `number`
 - sortdir => `asc`|`desc`
 - mark-row => `boolean`
 - mark-column => `boolean`
 - row-effect => `boolean`
+
+### unresolved
+
+It keeps the component hidden until it is loaded. For that you have to introduce in your `css`, the` unresilved` property as hidden. The component on loading will remove this property and the component will become visible.
+
+```html
+<style>
+  [unresolved] {
+    display: none;
+  }
+</style>
+<aw-table unresolved></aw-table>
+```
 
 ### sticky
 
@@ -210,13 +224,36 @@ In addition, the `aw-table` has one more interesting feature, you can add the` n
         <td>Ferrari</td>
         <td>Strawberry</td>
       </tr>
+    </tbody>
+  </table>
+</aw-table>
+```
+
+### Min width column
+
+A simple way to establish that the column must have a minimum width is by adding the `min-width` attribute to the column, in this way` aw-table` will interpret that that column cannot exceed that width
+
+```html
+<aw-table unresolved>
+  <table>
+    <thead>
       <tr>
-        <td>3</td>
-        <td nowrap>David Rajhan Dallara</td>
-        <td>3600</td>
-        <td>Details for David</td>
-        <td>Porsche 911rsr</td>
-        <td>Grape</td>
+        <th width="80px">Position</th>
+        <th width="150px">Name</th>
+        <th>Rating</th>
+        <th min-width="200px">Details</th>
+        <th>Car</th>
+        <th>Fruit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2</td>
+        <td nowrap>Jonathan Bampletiem</td>
+        <td>2000</td>
+        <td>Details for Jonathan</td>
+        <td>Aston Martin</td>
+        <td>Watermelon</td>
       </tr>
     </tbody>
   </table>
@@ -269,15 +306,15 @@ Puedes además ordenar la tabla y acceder a sus elementos por javascript de form
   </table>
 </aw-table>
 <script>
-const component = document.querySelector( "aw-table" );
-console.log( component.table );
-console.log( component.head );
-console.log( component.body );
-console.log( component.footer );
+  const component = document.querySelector("aw-table");
+  console.log(component.table);
+  console.log(component.head);
+  console.log(component.body);
+  console.log(component.footer);
 
-setTimeout(() => {
-    component.sort( 1, "desc" );
-}, 1500);
+  setTimeout(() => {
+    component.sort(1, "desc");
+  }, 1500);
 </script>
 ```
 
@@ -408,16 +445,14 @@ To solve the previous problem we can introduce a patch that will solve it, altho
 
 As we can see now in the example above we have introduced the `<style>` tag inside the `<table>` tag so that now those styles will also be loaded into the `ShadowDom`. It would also work if we entered a `<link rel ="stylesheet"/>`. **IMPORTANT**: This only works if we enter the styles right after the `<table>` tag.
 
-### Trabajando correctamente
+### Working properly
 
 It should be noted that working with web components is intended to work together with other web components. This problem won't happen if you put another component inside it instead:
 
 `components/user-name/user-name.js`
+
 ```javascript
-import {
-  PolymerElement,
-  html,
-} from "/node_modules/aw_polymer_3/polymer/polymer-element.js";
+import { PolymerElement, html } from "/node_modules/aw_polymer_3/polymer/polymer-element.js";
 
 class UserName extends PolymerElement {
   static get template() {
@@ -455,52 +490,48 @@ Now that we have created our component to enter the username, we just have to en
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Test page</title>
-</head>
-<body>
-  <aw-table unresolved>
-    <table>
-      <thead>
-        <tr>
-          <th>Position</th>
-          <th>Name</th>
-          <th>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2</td>
-          <td><user-name unresolved name="Jonathan Bampletiem" /></td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td><user-name unresolved name="Anthony Smith" /></td>
-          <td>2452</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td><user-name unresolved name="David Rajhan Dallara" /></td>
-          <td>3600</td>
-        </tr>
-      </tbody>
-    </table>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Test page</title>
+  </head>
+  <body>
+    <aw-table unresolved>
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2</td>
+            <td><user-name unresolved name="Jonathan Bampletiem" /></td>
+            <td>2000</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><user-name unresolved name="Anthony Smith" /></td>
+            <td>2452</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><user-name unresolved name="David Rajhan Dallara" /></td>
+            <td>3600</td>
+          </tr>
+        </tbody>
+      </table>
     </aw-table>
-    
-	<script src="/node_modules/aw_webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<script type="module" src="/node_modules/aw_polymer_3/polymer/polymer-element.js"></script>
-	<script type="module" async src="/node_modules/aw_table/aw-table.js"></script>
-	<script type="module" async src="/components/user-name/user-name.js"></script>
-</body>
+
+    <script src="/node_modules/aw_webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="/node_modules/aw_polymer_3/polymer/polymer-element.js"></script>
+    <script type="module" async src="/node_modules/aw_table/aw-table.js"></script>
+    <script type="module" async src="/components/user-name/user-name.js"></script>
+  </body>
 </html>
 ```
 
 In this way we can take advantage of the full potential of web components offered by polymer 3 without the need to make bundles or introduce web components only in the parts of the web that we want to make use of.
-
-
-
-
