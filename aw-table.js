@@ -13,21 +13,22 @@ class AwTable extends PolymerElement {
     return html`
       <style>
         :host {
-          display: block;
-          position: relative;
+			display: block;
+			position: relative;
+			width: 100%;
         }
+		div#container {
+			position: relative;
+			width: 100%;
+		}
         table {
-          border-collapse: var(--aw-table-border-collapse, collapse);
-          border-spacing: var(--aw-table-spacing, 0);
-          box-sizing: border-box;
-          font-family: var(
-            --aw-table-font-family,
-            Arial,
-            Helvetica,
-            sans-serif
-          );
-          overflow-x: auto;
-          width: 100%;
+			border-collapse: var(--aw-table-border-collapse, collapse);
+			border-spacing: var(--aw-table-spacing, 0);
+			box-sizing: border-box;
+			display: block;
+			font-family: var(--aw-table-font-family, Arial);
+			overflow-x: auto;
+          	width: 100%;
         }
         th {
           background-color: var(
@@ -56,15 +57,15 @@ class AwTable extends PolymerElement {
           position: sticky;
           top: 0;
         }
-        th:nth-child(1) > div {
-          padding: var(--aw-table-th-padding-nth1, 0.5em 0.5em 0.2em 0);
-        }
         th > div {
           box-sizing: border-box;
           font-size: var(--aw-table-header-font-size, 14px);
           font-weight: var(--aw-table-header-font-weight, bold);
           padding: var(--aw-table-header-padding, 0.5em 0.5em 0.2em 0.5em);
           text-align: var(--aw-table-header-text-align, left);
+        }
+        th:nth-child(1) > div {
+          padding: var(--aw-table-header-first-padding, 0.5em 0.5em 0.2em 0);
         }
         th .aw-sort-icon {
           background-color: var(--aw-table-header-background-color, white);
@@ -103,10 +104,7 @@ class AwTable extends PolymerElement {
           padding: var(--aw-table-cell-padding, 0.5em);
         }
         td:nth-child(1) > div {
-          padding: var(
-            --aw-table-cell-padding-nth1,
-            var(--aw-table-cell-padding, 0.5em 0.5em 0.5em 0.1em)
-          );
+          padding: var(--aw-table-cell-first-padding, 0.5em 0.5em 0.5em 0.1em);
         }
 
         [sticky] th {
@@ -152,10 +150,10 @@ class AwTable extends PolymerElement {
           transition: fill 0.3s;
         }
         [sortable]:hover {
-          color: var(--aw-table-header-color-hover, #666);
+          color: var(--aw-table-sortable-color-hover, #666);
         }
         [sortable]:hover .aw-sort-icon {
-          fill: var(--aw-table-header-color-hover, #666);
+          fill: var(--aw-table-sortable-color-hover, #666);
         }
         [nowrap] > div,
         td [nowrap] {
