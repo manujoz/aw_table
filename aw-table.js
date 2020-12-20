@@ -50,7 +50,7 @@ class AwTable extends PolymerElement {
                 }
                 th .aw-sort-icon {
                     background-color: var(--aw-table-header-background-color, white);
-                    bottom: var(--aw-table-sortale-icon-bottom, 0.2em);
+                    bottom: var(--aw-table-sortable-icon-bottom, 0.2em);
                     fill: var(--aw-table-sortable-icon-color, #999);
                     height: var(--aw-table-sortable-icon-size, 16px);
                     position: absolute;

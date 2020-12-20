@@ -344,7 +344,7 @@ To style the table you can use these CSS variables. In the following table you c
 --aw-table-header-text-align: left;
 
 --aw-table-sortable-color-hover: #666;
---aw-table-sortale-icon-bottom: 0.2em;
+--aw-table-sortable-icon-bottom: 0.2em;
 --aw-table-sortable-icon-color: #999;
 --aw-table-sortable-icon-size: 16px;
 --aw-table-sortable-icon-right: 5px;
