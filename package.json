@@ -1,6 +1,6 @@
 {
   "name": "aw_table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Table for aw_polymer_3 with various functionalities",
   "main": "aw-table.js",
   "keywords": [
