@@ -2,8 +2,41 @@ import { PolymerElement, html } from "../aw_polymer_3/polymer/polymer-element.js
 import "../aw_polymer_3/iron-icons/iron-icons.js";
 
 /**
- * @class AwTable
- *
+ * Componente de tabla
+ * 
+ * @cssprop --aw-table-border-collapse
+ * @cssprop --aw-table-cell-background-color-hover
+ * @cssprop --aw-table-cell-border
+ * @cssprop --aw-table-cell-border-bottom
+ * @cssprop --aw-table-cell-border-left
+ * @cssprop --aw-table-cell-border-right
+ * @cssprop --aw-table-cell-border-top
+ * @cssprop --aw-table-cell-color
+ * @cssprop --aw-table-cell-first-padding
+ * @cssprop --aw-table-cell-font-size
+ * @cssprop --aw-table-cell-padding
+ * @cssprop --aw-table-column-mark-background-color
+ * @cssprop --aw-table-column-mark-color
+ * @cssprop --aw-table-font-family
+ * @cssprop --aw-table-header-background-color
+ * @cssprop --aw-table-header-border
+ * @cssprop --aw-table-header-border-bottom
+ * @cssprop --aw-table-header-border-left
+ * @cssprop --aw-table-header-border-right
+ * @cssprop --aw-table-header-border-top
+ * @cssprop --aw-table-header-first-padding
+ * @cssprop --aw-table-header-font-size
+ * @cssprop --aw-table-header-font-weight
+ * @cssprop --aw-table-header-paddin
+ * @cssprop --aw-table-header-text-align
+ * @cssprop --aw-table-row-mark-background-color
+ * @cssprop --aw-table-row-mark-color
+ * @cssprop --aw-table-sortable-color-hover
+ * @cssprop --aw-table-sortable-icon-bottom
+ * @cssprop --aw-table-sortable-icon-color
+ * @cssprop --aw-table-sortable-icon-right
+ * @cssprop --aw-table-sortable-icon-size
+ * @cssprop --aw-table-spacing
  */
 class AwTable extends PolymerElement {
     static get template() {
@@ -12,6 +45,7 @@ class AwTable extends PolymerElement {
                 :host {
                     display: block;
                     position: relative;
+                    font-family: var(--aw-table-font-family, Arial);
                 }
                 div#container {
                     position: relative;
@@ -22,7 +56,6 @@ class AwTable extends PolymerElement {
                     border-spacing: var(--aw-table-spacing, 0);
                     box-sizing: border-box;
                     display: block;
-                    font-family: var(--aw-table-font-family, Arial);
                     overflow-x: auto;
                     width: 100%;
                 }
@@ -30,8 +63,8 @@ class AwTable extends PolymerElement {
                     background-color: var(--aw-table-header-background-color, transparent);
                     border-bottom: var(--aw-table-header-border-bottom, var(--aw-table-header-border, solid 1px #ddd));
                     border-left: var(--aw-table-header-border-left, var(--aw-table-header-border, none));
-                    border-right: var(--aw-table-header-right, var(--aw-table-header-border, none));
-                    border-top: var(--aw-table-header-top, var(--aw-table-header-border, none));
+                    border-right: var(--aw-table-header-border-right, var(--aw-table-header-border, none));
+                    border-top: var(--aw-table-header-border-top, var(--aw-table-header-border, none));
                     color: var(--aw-table-header-color, #888);
                     margin: 0;
                     padding: 0;
@@ -59,9 +92,9 @@ class AwTable extends PolymerElement {
                 }
                 td {
                     border-bottom: var(--aw-table-cell-border-bottom, var(--aw-table-cell-border, none));
-                    border-left: var(--aw-table-cell-border-bottom, var(--aw-table-cell-border, none));
-                    border-right: var(--aw-table-cell-border-bottom, var(--aw-table-cell-border, none));
-                    border-top: var(--aw-table-cell-border-bottom, var(--aw-table-cell-border, none));
+                    border-left: var(--aw-table-cell-border-left, var(--aw-table-cell-border, none));
+                    border-right: var(--aw-table-cell-border-right, var(--aw-table-cell-border, none));
+                    border-top: var(--aw-table-cell-border-top, var(--aw-table-cell-border, none));
                     color: var(--aw-table-cell-color, #333);
                     font-size: var(--aw-table-cell-font-size, 16px);
                     margin: 0;
@@ -125,22 +158,33 @@ class AwTable extends PolymerElement {
 
     static get properties() {
         return {
-            table: { type: HTMLTableElement, value: null },
-            head: { type: HTMLElement, value: null },
-            headCells: { type: Array, value: [] },
-            rows: { type: Array, value: [] },
-
-            "mark-row": { type: Boolean, value: false },
-            "mark-column": { type: Boolean, value: false },
-            "row-effect": { type: Boolean, value: false },
-            sticky: { type: Boolean, value: false },
-            sortbycolumn: { type: Number, value: null },
-            sortdir: { type: String, value: "asc" },
+            /** Marca diferencias entre filas */
+            markRow: { type: Boolean },
+            /** Marca diferencias entre columnas */
+            markColumn: { type: Boolean },
+            /** Efecto al hacer hover sobre las filas */
+            rowEffect: { type: Boolean },
+            /** Pone la cabecera pegajosa */
+            sticky: { type: Boolean },
+            /** Ordena por el número de columna */
+            sortbycolumn: { type: Number },
+            /** 
+             * Orden de ordenación
+             * @type {"asc"|"desc"}
+             */
+            sortdir: { type: String },
         };
     }
 
     constructor() {
         super();
+
+        this.markRow = false;
+        this.markColumn = false;
+        this.rowEffect = false;
+        this.sticky = false;
+        this.sortbycolumn = null;
+        this.sort = "asc";
 
         /** @type {HTMLTableElement} */
         this.table = null;
@@ -422,10 +466,10 @@ class AwTable extends PolymerElement {
      * Pone los atributos a la tabla
      */
     putTableAttributes() {
-        this["mark-row"] && this.table.setAttribute("mark-row", "");
-        this["mark-column"] && this.table.setAttribute("mark-column", "");
-        this["row-effect"] && this.table.setAttribute("row-effect", "");
-        this["sticky"] && this.table.setAttribute("sticky", "");
+        this.markRow && this.table.setAttribute("mark-row", "");
+        this.markColumn && this.table.setAttribute("mark-column", "");
+        this.rowEffect && this.table.setAttribute("row-effect", "");
+        this.sticky && this.table.setAttribute("sticky", "");
     }
 
     /**
